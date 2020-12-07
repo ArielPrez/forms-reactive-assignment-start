@@ -4,60 +4,66 @@
       <form [formGroup]="myReactiveForm" (ngSubmit)="onSubmit()">
         <!-- <div formGroupName=""> -->
           <div class="form-group" >
-            <label for="project">Project Name:</label>
+            <label for="project">Project Name  </label>
+            <p id="note" for="project">[ Test & Test2 are not valid]</p>
             <input type="text" class="form-control"
                   id="project"
                   formControlName="project">
             <span class="help-block"
               *ngIf="!myReactiveForm.get('project').valid && myReactiveForm.get('project').touched">
-              <label *ngIf="myReactiveForm.get('project').pending">
+              <span *ngIf="myReactiveForm.get('project').pending">
                 Checking email...
-              </label>
-              <span *ngIf="myReactiveForm.get('project').errors['required']">
+              </span>
+              <span *ngIf="myReactiveForm.get('project').errors?.required">
                 This field is required!
               </span>
-              <span *ngIf="myReactiveForm.get('project').errors['projectIsForbidden']">
+              <span *ngIf="myReactiveForm.get('project').errors?.projectIsForbidden">
                 Please enter a valid project name.
               </span>
 
 
             </span>
           </div>
-
+          <hr>
           <div class="form-group" >
             <label for="email">Email:</label>
-            <input type="text" class="form-control"
+            <input type="email" class="form-control"
                   id="email"
                   formControlName="email">
             <span class="help-block"
               *ngIf="!myReactiveForm.get('email').valid && myReactiveForm.get('email').touched">
-              <span *ngIf="myReactiveForm.get('email').errors['email']">
+              <span *ngIf="myReactiveForm.get('email').errors?.email">
                 Please enter a valid email.
               </span>
-              <span *ngIf="myReactiveForm.get('email').errors['required']">
+              <span *ngIf="myReactiveForm.get('email').errors?.required">
                 This field is required!
               </span>
             </span>
           </div>
+
         <!-- </div> -->
+          <hr>
           <div class="form-group">
             <label for="status">Status</label>
             <select id="status" class="form-control"
-                  formArrayName="status">
+                  formControlName="status">
               <option value="stable">Stable</option>
               <option value="critical">Critical</option>
               <option value="finished">Finished</option>
             </select>
           </div>
-        <button class="btn btn-outline-success" type="submit" >
-          Submit
-          <!-- [disabled]="!myReactiveForm.valid" -->
-        </button>
-        <span *ngIf="!myReactiveForm.valid && (myReactiveForm.touched && myReactiveForm.dirty)" >
-          Please enter a valid data.
-        </span>
+        <div class="form-group">
+          <button class="btn btn-outline-success" type="submit" [disabled]="!myReactiveForm.valid">
+            Submit
+          </button>
+          <br>
+          <span *ngIf="!myReactiveForm.valid && (myReactiveForm.touched && myReactiveForm.dirty)" >
+            Please enter a valid data.
+          </span>
+        </div>
 
       </form>
+      <hr>
       <pre>
         Create a Form with the following Controls and Validators
           1) Project Name (should not be empty)
